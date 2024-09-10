@@ -1,3 +1,4 @@
+// text-ediquette/Develop/client/webpack.config.js
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
@@ -15,19 +16,14 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      // Generates an HTML file from a template
       new HtmlWebpackPlugin({
         template: './index.html',
         title: 'JATE',
       }),
-      
-      // Injects the custom service worker into the build
       new InjectManifest({
         swSrc: './src-sw.js',
         swDest: 'service-worker.js',
       }),
-
-      // Generates a manifest file for PWA
       new WebpackPwaManifest({
         name: 'Just Another Text Editor',
         short_name: 'JATE',
@@ -47,12 +43,10 @@ module.exports = () => {
     ],
     module: {
       rules: [
-        // CSS loader
         {
           test: /\.css$/,
           use: ['style-loader', 'css-loader'],
         },
-        // Babel loader to transpile modern JavaScript
         {
           test: /\.m?js$/,
           exclude: /node_modules/,

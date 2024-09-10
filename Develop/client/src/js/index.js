@@ -1,3 +1,4 @@
+// text-ediquette/Develop/client/src/js/index.js
 import { Workbox } from 'workbox-window';
 import Editor from './editor';
 import './database';
@@ -11,7 +12,7 @@ const loadSpinner = () => {
   spinner.classList.add('spinner');
   spinner.innerHTML = `
   <div class="loading-container">
-  <div class="loading-spinner" />
+    <div class="loading-spinner"></div>
   </div>
   `;
   main.appendChild(spinner);
@@ -25,9 +26,16 @@ if (typeof editor === 'undefined') {
 
 // Check if service workers are supported
 if ('serviceWorker' in navigator) {
-  // register workbox service worker
-  const workboxSW = new Workbox('/src-sw.js');
-  workboxSW.register();
+  window.addEventListener('load', () => {
+    const swUrl = `${process.env.NODE_ENV === 'production' ? '' : 'dist/'}service-worker.js`;
+    navigator.serviceWorker.register(swUrl)
+      .then((registration) => {
+        console.log('ServiceWorker registered: ', registration);
+      })
+      .catch((registrationError) => {
+        console.log('ServiceWorker registration failed: ', registrationError);
+      });
+  });
 } else {
   console.error('Service workers are not supported in this browser.');
 }

@@ -21,8 +21,8 @@ module.exports = () => {
         title: 'JATE',
       }),
       new InjectManifest({
-        swSrc: './src-sw.js',
-        swDest: 'service-worker.js',
+        swSrc: './src-sw.js', // The source service worker file
+        swDest: 'service-worker.js', // The destination in the dist folder
       }),
       new WebpackPwaManifest({
         name: 'Just Another Text Editor',

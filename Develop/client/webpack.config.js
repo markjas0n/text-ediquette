@@ -6,8 +6,8 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 module.exports = {
   mode: 'production',
   entry: {
-    main: './src/js/index.js',
-    install: './src/js/install.js',
+    main: path.resolve(__dirname, './src/js/index.js'),
+    install: path.resolve(__dirname, './src/js/install.js'),
   },
   output: {
     filename: '[name].bundle.js',
@@ -15,11 +15,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'Develop/client/index.html',
+      template: path.resolve(__dirname, './index.html'),
       title: 'JATE',
     }),
     new InjectManifest({
-      swSrc: 'Develop/client/src-sw.js', // Ensure this file exists in the correct location
+      swSrc: path.resolve(__dirname, './src-sw.js'),
       swDest: 'service-worker.js',
     }),
     new WebpackPwaManifest({
@@ -32,7 +32,7 @@ module.exports = {
       publicPath: './',
       icons: [
         {
-          src: path.resolve('Develop/client/src/images/logo.png'),
+          src: path.resolve(__dirname, 'src/images/logo.png'),
           sizes: [96, 128, 192, 256, 384, 512],
           destination: path.join('assets', 'icons'),
         },
@@ -58,4 +58,3 @@ module.exports = {
     ],
   },
 };
-console.log('Resolved image path:', path.resolve(__dirname, 'src/images/logo.png'));
